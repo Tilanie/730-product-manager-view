@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { DialogElementsExampleDialog, HomeComponent } from './home/home.component';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,6 +14,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent }
@@ -22,7 +27,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    DialogElementsExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,10 @@ const routes: Routes = [
     MatFormFieldModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule
   ],
   exports: [
     MatTableModule,
@@ -43,7 +52,10 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatDialogModule,
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
