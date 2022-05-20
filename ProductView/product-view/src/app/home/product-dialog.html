@@ -1,5 +1,74 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+<div class="product-edit-dialog">
+  <div class="dialog-header">
+
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+
+  <div mat-dialog-content class="form-container">
+    <form >
+      <div class="product-input">
+        <span class="input-span">Created:</span>
+        <input class="product-input" type="text" name="created" [(ngModel)]="data.created" [disabled]="true">
+
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">ProductId:</span>
+        <input class="product-input"  type="text" name="productId" [(ngModel)]="data.productId" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">VendorId:</span>
+        <input class="product-input"  type="text" name="vendorId" [(ngModel)]="data.vendorId" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">Size:</span>
+        <input class="product-input"  type="text" name="size" [(ngModel)]="data.size" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">UnitPrice:</span>
+        <input class="product-input"  type="text" name="unitPrice" [(ngModel)]="data.unitPrice" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">ProductName:</span>
+        <input class="product-input"  type="text" name="productName" [(ngModel)]="data.productName" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">Colour:</span>
+        <input class="product-input"  type="text" name="colour" [(ngModel)]="data.colour" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">Category:</span>
+        <input class="product-input"  type="text" name="category" [(ngModel)]="data.category" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">Brand:</span>
+        <input class="product-input"  type="text" name="brand" [(ngModel)]="data.brand" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">Description:</span>
+        <input class="product-input"  type="text" name="description" [(ngModel)]="data.description" [disabled]="true">
+        <br />
+      </div>
+      <div class="product-input">
+        <span class="input-span">StockLevel:</span>
+        <input class="product-input"  type="text" name="stockLevel" [(ngModel)]="data.stockLevel" [disabled]="!edit">
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions class="dialog-bottom-buttons">
+
+    <button mat-button (click)="toggleEdit()" *ngIf="!edit">Edit</button>
+    <!-- <button mat-button *ngIf="!edit">Reorder</button> -->
+
+    <button mat-button (click)="toggleEdit()" *ngIf="edit">Cancel</button>
+    <button mat-button (click)="saveProduct()" *ngIf="edit">Save</button>
+  </div>
 </div>
