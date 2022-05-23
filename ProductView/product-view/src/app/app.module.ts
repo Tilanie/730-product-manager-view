@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DialogElementsExampleDialog, HomeComponent } from './home/home.component';
+import { ConfirmDialog, DialogElementsExampleDialog, HomeComponent, StoreProductDialog } from './home/home.component';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import { RouterModule, Routes } from '@angular/router';
@@ -28,7 +28,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    DialogElementsExampleDialog
+    DialogElementsExampleDialog,
+    StoreProductDialog,
+    ConfirmDialog
   ],
   imports: [
     BrowserModule,

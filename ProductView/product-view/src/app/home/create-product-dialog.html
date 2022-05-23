@@ -1,0 +1,67 @@
+<div class="product-create-dialog">
+    <div class="dialog-header">
+  
+      <button mat-button mat-dialog-close>Close</button>
+    </div>
+  
+    <div mat-dialog-content class="form-container">
+      <form >
+
+        <div class="product-input">
+          <span class="input-span">ProductId:</span>
+          <input class="product-input"  type="text" name="productId" [(ngModel)]="productModel.productId">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">VendorId:</span>
+          <input class="product-input"  type="text" name="vendorId" [(ngModel)]="productModel.vendorId">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">Size:</span>
+          <input class="product-input"  type="text" name="size" [(ngModel)]="productModel.size">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">UnitPrice:</span>
+          <input class="product-input"  type="text" name="unitPrice" [(ngModel)]="productModel.unitPrice">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">ProductName:</span>
+          <input class="product-input"  type="text" name="productName" [(ngModel)]="productModel.productName">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">Colour:</span>
+          <input class="product-input"  type="text" name="colour" [(ngModel)]="productModel.colour">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">Category:</span>
+          <input class="product-input"  type="text" name="category" [(ngModel)]="productModel.category">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">Brand:</span>
+          <input class="product-input"  type="text" name="brand" [(ngModel)]="productModel.brand">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">Description:</span>
+          <input class="product-input"  type="text" name="description" [(ngModel)]="productModel.description">
+          <br />
+        </div>
+        <div class="product-input">
+          <span class="input-span">StockLevel:</span>
+          <input class="product-input"  type="text" name="stockLevel" [(ngModel)]="productModel.stockLevel">
+        </div>
+      </form>
+    </div>
+    <div mat-dialog-actions class="dialog-bottom-buttons">
+
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button (click)="saveProduct()">Save</button>
+    </div>
+  </div>
+  
