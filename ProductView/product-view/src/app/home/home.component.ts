@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import { ProductModel } from '../models/product-model';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   rowSelected(row: ProductModel){
-    console.log(row)
+   
     this.productModel = new ProductModel(row.position, row.created, row.productId, row.vendorId, row.size, row.unitPrice, row.productName, row.colour, row.category, row.brand, row.description, row.stockLevel)
     this.openDialog(this.productModel)
   }
@@ -42,7 +42,27 @@ export class HomeComponent implements OnInit {
       width: '30%',
       data: productModel} );
   }
-  constructor(public dialog: MatDialog) {}
+
+  openAddProductDialog(){
+    const dialogRef = this.productDialog.open(StoreProductDialog, {
+
+      width: '30%',
+      
+    } );
+
+    const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
+      dialogRef.close()
+   
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      // unsubscribe onAdd
+     
+    });
+  }
+
+
+  
+  constructor(public dialog: MatDialog, public productDialog: MatDialog) {}
   ngOnInit(): void {
   }
 }
@@ -59,6 +79,7 @@ export class DialogElementsExampleDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductModel){
     this.productModel = data;
     this.productId = data.productId;
+    
   }
 
   toggleEdit(){
@@ -66,6 +87,61 @@ export class DialogElementsExampleDialog {
   }
 
   saveProduct(){
+    //@TODO
+  }
+}
 
+@Component({
+  selector: 'create-product-dialog',
+  templateUrl: 'create-product-dialog.html',
+})
+
+export class StoreProductDialog {
+  productModel: ProductModel;
+  public onAdd = new EventEmitter()
+  constructor(public confirmDialog: MatDialog){
+    this.productModel =new ProductModel()
+  }
+
+  saveProduct(){
+    //@TODO
+    this.openConfirmDialog(this.productModel)
+  }
+
+  openConfirmDialog(product: ProductModel): void {
+    const dialogRef = this.confirmDialog.open(ConfirmDialog, {
+      width: '250px',
+      data: product,
+    }
+    );
+    const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
+      this.onAdd.emit();
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      // unsubscribe onAdd
+      this.onAdd.emit();
+    });
+  }
+}
+
+@Component({
+  selector: 'confirm-dialog',
+  templateUrl: 'confirm-dialog.html',
+})
+export class ConfirmDialog {
+  public onAdd = new EventEmitter()
+  constructor(
+    
+    public dialogRef: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: ProductModel
+  ) {
+    this.onAdd = new EventEmitter()
+  }
+
+ 
+
+  saveProduct(){
+    //@TODO implement
+    this.onAdd.emit();
   }
 }

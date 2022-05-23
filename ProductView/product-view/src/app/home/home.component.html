@@ -1,5 +1,5 @@
     
-    
+  <div class="home-div">
     <mat-form-field appearance="standard">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
@@ -73,3 +73,7 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
+  <div class="button-div">
+    <button mat-raised-button (click)="openAddProductDialog()">Add Product</button>
+  </div>
+</div>
