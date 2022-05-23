@@ -17,6 +17,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -45,7 +47,9 @@ const routes: Routes = [
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    MatSelectModule
   ],
   exports: [
     MatTableModule,
