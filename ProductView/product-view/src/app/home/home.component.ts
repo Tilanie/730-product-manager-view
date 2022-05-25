@@ -79,18 +79,57 @@ export class HomeComponent implements OnInit {
     this.openDialog(this.productModel)
   }
 
-  assignTask(){
+  openTaskDialog(element: any): void {
+  
+    const dialogRef = this.taskDialog.open(TaskDialog, {
+      width: '1000px'
+    });
 
+    const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
+      
+    });
+  
   }
 
-  assignUser(){
+  openUserDialog(element: any): void {
+    const dialogRef = this.userDialog.open(UserDialog, {
+      width: '1000px'
+    });
 
+    const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
+      
+    });
   }
 
-  assignTaskToQueue(){
+  openqueueDialog(element: any): void {
+    const dialogRef = this.queueDialog.open(QueueDialog, {
+      width: '1000px'
+    });
 
+    const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
+      
+    });
   }
 
+  assignTaskToQueue(element: any){
+    let task = element;
+    this.openqueueDialog(element);
+  }
+
+  assignUserToQueue(element: any){
+    let user = element;
+    this.openqueueDialog(element);
+  }
+
+  assignTask(element: any){
+    let queue = element;
+    this.openTaskDialog(element);
+  }
+
+  assignUser(element: any){
+    let queue = element;
+    this.openUserDialog(element);
+  }
 
   openDialog(productModel: ProductModel) {
     this.dialog.open(DialogElementsExampleDialog, {
@@ -117,14 +156,14 @@ export class HomeComponent implements OnInit {
 
 
   
-  constructor(public dialog: MatDialog, public productDialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public productDialog: MatDialog, public taskDialog: MatDialog, public userDialog: MatDialog, public queueDialog: MatDialog) {}
   ngOnInit(): void {
   }
 }
 
 @Component({
   selector: 'product-dialog',
-  templateUrl: 'product-dialog.html',
+  templateUrl: './dialogs/product-dialog/product-dialog.html',
 })
 
 export class DialogElementsExampleDialog {
@@ -148,7 +187,7 @@ export class DialogElementsExampleDialog {
 
 @Component({
   selector: 'create-product-dialog',
-  templateUrl: 'create-product-dialog.html',
+  templateUrl: './dialogs/create-product-dialog/create-product-dialog.html',
 })
 
 export class StoreProductDialog {
@@ -177,11 +216,13 @@ export class StoreProductDialog {
       this.onAdd.emit();
     });
   }
+
+  
 }
 
 @Component({
   selector: 'confirm-dialog',
-  templateUrl: 'confirm-dialog.html',
+  templateUrl: './dialogs/confirm-dialog/confirm-dialog.html',
 })
 export class ConfirmDialog {
   public onAdd = new EventEmitter()
@@ -199,4 +240,92 @@ export class ConfirmDialog {
     //@TODO implement
     this.onAdd.emit();
   }
+}
+
+
+@Component({
+  selector: 'task-dialog',
+  templateUrl: './dialogs/task-dialog/task-dialog.html',
+})
+export class TaskDialog {
+  public onAdd = new EventEmitter()
+  constructor(
+    
+    public dialogRef: MatDialog
+  ) {
+    this.onAdd = new EventEmitter()
+  }
+
+  addTask(){
+    //@TODO implement
+    // this.onAdd.emit();
+  }
+
+  taskDataSource = new MatTableDataSource(TASK_DATA);
+  taskDisplayColumns: string[] = ['id', 'warehouse_number', 'created_on', 'created_by', 'status', 'assigned_to', 'type']
+
+  applyTaskFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.taskDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  rowSelected(element: TaskModel){
+    //@TODO assign this task to the queue
+  }
+}
+
+
+@Component({
+  selector: 'user-dialog',
+  templateUrl: './dialogs/user-dialog/user-dialog.html',
+})
+export class UserDialog {
+  public onAdd = new EventEmitter()
+  constructor(
+    
+    public dialogRef: MatDialog
+  ) {
+    this.onAdd = new EventEmitter()
+  }
+
+  userDataSource = new MatTableDataSource(USER_DATA);
+  userDisplayColumns: string[] = ['id', 'id_number', 'email', 'username', 'first_name', 'last_name', 'password']
+  addTask(){
+    //@TODO implement
+    // this.onAdd.emit();
+  }
+  applyUserFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.userDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  rowSelected(element: UserModel){
+    //@TODO assign this user to the queue
+   
+  }
+
+}
+
+
+@Component({
+  selector: 'queue-dialog',
+  templateUrl: './dialogs/queue-dialog/queue-dialog.html',
+})
+export class QueueDialog {
+  public onAdd = new EventEmitter()
+  constructor(
+    
+    public dialogRef: MatDialog
+  ) {
+    this.onAdd = new EventEmitter()
+  }
+
+  queueDisplayedColumens: string[] = ['id', 'tasks', 'assigned_users', 'state'];
+  queueDataSource = new MatTableDataSource(QUEUE_DATA);
+
+  applyQueueFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.queueDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 }

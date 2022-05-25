@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ConfirmDialog, DialogElementsExampleDialog, HomeComponent, StoreProductDialog } from './home/home.component';
+import { ConfirmDialog, DialogElementsExampleDialog, HomeComponent, QueueDialog, StoreProductDialog, TaskDialog, UserDialog } from './home/home.component';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import { RouterModule, Routes } from '@angular/router';
@@ -32,7 +32,10 @@ const routes: Routes = [
     HomeComponent,
     DialogElementsExampleDialog,
     StoreProductDialog,
-    ConfirmDialog
+    ConfirmDialog,
+    TaskDialog,
+    UserDialog,
+    QueueDialog
   ],
   imports: [
     BrowserModule,
