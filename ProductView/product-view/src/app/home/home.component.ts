@@ -6,6 +6,12 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { QueueModel } from '../models/queue-model';
 import { TaskModel } from '../models/task-model';
 import { UserModel } from '../models/user-model';
+import { ConfirmDialog } from './dialogs/confirm-dialog/confirm-dialog';
+import { QueueDialog } from './dialogs/queue-dialog/queue-dialog';
+import { StoreProductDialog } from './dialogs/create-product-dialog/create-product-dialog';
+import { TaskDialog } from './dialogs/task-dialog/task-dialog';
+import { UserDialog } from './dialogs/user-dialog/user-dialog';
+import { DialogElementsExampleDialog } from './dialogs/product-dialog/product-dialog';
 
 
 
@@ -82,7 +88,8 @@ export class HomeComponent implements OnInit {
   openTaskDialog(element: any): void {
   
     const dialogRef = this.taskDialog.open(TaskDialog, {
-      width: '1000px'
+      width: '1000px',
+      data: TASK_DATA
     });
 
     const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
@@ -93,7 +100,8 @@ export class HomeComponent implements OnInit {
 
   openUserDialog(element: any): void {
     const dialogRef = this.userDialog.open(UserDialog, {
-      width: '1000px'
+      width: '1000px',
+      data: USER_DATA
     });
 
     const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
@@ -103,7 +111,8 @@ export class HomeComponent implements OnInit {
 
   openqueueDialog(element: any): void {
     const dialogRef = this.queueDialog.open(QueueDialog, {
-      width: '1000px'
+      width: '1000px',
+      data: QUEUE_DATA
     });
 
     const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
@@ -161,171 +170,7 @@ export class HomeComponent implements OnInit {
   }
 }
 
-@Component({
-  selector: 'product-dialog',
-  templateUrl: './dialogs/product-dialog/product-dialog.html',
-})
-
-export class DialogElementsExampleDialog {
-  productModel: ProductModel;
-  edit: boolean = false;
-  productId: string;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ProductModel){
-    this.productModel = data;
-    this.productId = data.productId;
-    
-  }
-
-  toggleEdit(){
-    this.edit = !this.edit;
-  }
-
-  saveProduct(){
-    //@TODO
-  }
-}
-
-@Component({
-  selector: 'create-product-dialog',
-  templateUrl: './dialogs/create-product-dialog/create-product-dialog.html',
-})
-
-export class StoreProductDialog {
-  productModel: ProductModel;
-  public onAdd = new EventEmitter()
-  constructor(public confirmDialog: MatDialog){
-    this.productModel =new ProductModel()
-  }
-
-  saveProduct(){
-    //@TODO
-    this.openConfirmDialog(this.productModel)
-  }
-
-  openConfirmDialog(product: ProductModel): void {
-    const dialogRef = this.confirmDialog.open(ConfirmDialog, {
-      width: '250px',
-      data: product,
-    }
-    );
-    const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
-      this.onAdd.emit();
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      // unsubscribe onAdd
-      this.onAdd.emit();
-    });
-  }
-
-  
-}
-
-@Component({
-  selector: 'confirm-dialog',
-  templateUrl: './dialogs/confirm-dialog/confirm-dialog.html',
-})
-export class ConfirmDialog {
-  public onAdd = new EventEmitter()
-  constructor(
-    
-    public dialogRef: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: ProductModel
-  ) {
-    this.onAdd = new EventEmitter()
-  }
-
- 
-
-  saveProduct(){
-    //@TODO implement
-    this.onAdd.emit();
-  }
-}
 
 
-@Component({
-  selector: 'task-dialog',
-  templateUrl: './dialogs/task-dialog/task-dialog.html',
-})
-export class TaskDialog {
-  public onAdd = new EventEmitter()
-  constructor(
-    
-    public dialogRef: MatDialog
-  ) {
-    this.onAdd = new EventEmitter()
-  }
-
-  addTask(){
-    //@TODO implement
-    // this.onAdd.emit();
-  }
-
-  taskDataSource = new MatTableDataSource(TASK_DATA);
-  taskDisplayColumns: string[] = ['id', 'warehouse_number', 'created_on', 'created_by', 'status', 'assigned_to', 'type']
-
-  applyTaskFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.taskDataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  rowSelected(element: TaskModel){
-    //@TODO assign this task to the queue
-  }
-}
 
 
-@Component({
-  selector: 'user-dialog',
-  templateUrl: './dialogs/user-dialog/user-dialog.html',
-})
-export class UserDialog {
-  public onAdd = new EventEmitter()
-  constructor(
-    
-    public dialogRef: MatDialog
-  ) {
-    this.onAdd = new EventEmitter()
-  }
-
-  userDataSource = new MatTableDataSource(USER_DATA);
-  userDisplayColumns: string[] = ['id', 'id_number', 'email', 'username', 'first_name', 'last_name', 'password']
-  addTask(){
-    //@TODO implement
-    // this.onAdd.emit();
-  }
-  applyUserFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.userDataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  rowSelected(element: UserModel){
-    //@TODO assign this user to the queue
-   
-  }
-
-}
-
-
-@Component({
-  selector: 'queue-dialog',
-  templateUrl: './dialogs/queue-dialog/queue-dialog.html',
-})
-export class QueueDialog {
-  public onAdd = new EventEmitter()
-  constructor(
-    
-    public dialogRef: MatDialog
-  ) {
-    this.onAdd = new EventEmitter()
-  }
-
-  queueDisplayedColumens: string[] = ['id', 'tasks', 'assigned_users', 'state'];
-  queueDataSource = new MatTableDataSource(QUEUE_DATA);
-
-  applyQueueFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.queueDataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-}

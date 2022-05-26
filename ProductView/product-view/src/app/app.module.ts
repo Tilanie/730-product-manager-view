@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ConfirmDialog, DialogElementsExampleDialog, HomeComponent, QueueDialog, StoreProductDialog, TaskDialog, UserDialog } from './home/home.component';
+import {  HomeComponent } from './home/home.component';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import { RouterModule, Routes } from '@angular/router';
@@ -19,6 +19,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
+import { ConfirmDialog } from './home/dialogs/confirm-dialog/confirm-dialog';
+import { QueueDialog } from './home/dialogs/queue-dialog/queue-dialog';
+import { StoreProductDialog } from './home/dialogs/create-product-dialog/create-product-dialog';
+import { TaskDialog } from './home/dialogs/task-dialog/task-dialog';
+import { UserDialog } from './home/dialogs/user-dialog/user-dialog';
+import { DialogElementsExampleDialog } from './home/dialogs/product-dialog/product-dialog';
 
 
 
@@ -31,11 +37,11 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     DialogElementsExampleDialog,
-    StoreProductDialog,
-    ConfirmDialog,
     TaskDialog,
     UserDialog,
-    QueueDialog
+    ConfirmDialog,
+    QueueDialog,
+    StoreProductDialog
   ],
   imports: [
     BrowserModule,
