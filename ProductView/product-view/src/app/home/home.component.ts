@@ -89,11 +89,14 @@ export class HomeComponent implements OnInit {
   
     const dialogRef = this.taskDialog.open(TaskDialog, {
       width: '1000px',
-      data: TASK_DATA
+      data: {
+        TASK_DATA: TASK_DATA,
+        QUEUE_DATA: element
+      }
     });
 
     const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
-      
+      dialogRef.close();
     });
   
   }
@@ -101,22 +104,28 @@ export class HomeComponent implements OnInit {
   openUserDialog(element: any): void {
     const dialogRef = this.userDialog.open(UserDialog, {
       width: '1000px',
-      data: USER_DATA
+      data: {
+        USER_DATA: USER_DATA,
+        QUEUE_DATA: element
+      }
     });
 
     const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
-      
+      dialogRef.close();
     });
   }
 
   openqueueDialog(element: any): void {
     const dialogRef = this.queueDialog.open(QueueDialog, {
       width: '1000px',
-      data: QUEUE_DATA
+      data: {
+        QUEUE_DATA: QUEUE_DATA,
+        info: element
+      }
     });
 
     const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
-      
+      dialogRef.close();
     });
   }
 

@@ -25,6 +25,7 @@ import { StoreProductDialog } from './home/dialogs/create-product-dialog/create-
 import { TaskDialog } from './home/dialogs/task-dialog/task-dialog';
 import { UserDialog } from './home/dialogs/user-dialog/user-dialog';
 import { DialogElementsExampleDialog } from './home/dialogs/product-dialog/product-dialog';
+import { ConfirmAssignmentDialog } from './home/dialogs/confirm-assignment-dialog/confirm-assignment-dialog';
 
 
 
@@ -41,7 +42,8 @@ const routes: Routes = [
     UserDialog,
     ConfirmDialog,
     QueueDialog,
-    StoreProductDialog
+    StoreProductDialog,
+    ConfirmAssignmentDialog
   ],
   imports: [
     BrowserModule,

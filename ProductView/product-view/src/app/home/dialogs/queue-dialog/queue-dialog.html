@@ -3,7 +3,7 @@
     <div class="home-div">
         <mat-form-field appearance="standard">
         <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyQueueFilter($event)" placeholder="Ex. ium" #queueInput>
+        <input matInput (keyup)="applyQueueFilter($event)" placeholder="Ex. ium" #queueDialogInput>
         </mat-form-field>
       
       <table mat-table [dataSource]="queueDataSource" class="mat-elevation-z8 dialog-table">
@@ -48,11 +48,11 @@
        
 
         <tr mat-header-row *matHeaderRowDef="queueDisplayedColumens"></tr>
-        <tr class="row-hover" mat-row *matRowDef="let row; columns: queueDisplayedColumens;"></tr>
+        <tr class="row-hover" mat-row *matRowDef="let row; columns: queueDisplayedColumens;" (click)="rowSelected(row)"></tr>
       
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td  class="mat-cell" colspan="4">No data matching the filter "{{queueInput.value}}"</td>
+          <td  class="mat-cell" colspan="4">No data matching the filter "{{queueDialogInput.value}}"</td>
         </tr>
       </table>
       
