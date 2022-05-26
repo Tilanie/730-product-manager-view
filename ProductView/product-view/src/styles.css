@@ -29,6 +29,33 @@
 
 }
 
-/* .product-input{
-  width: 50%;
-} */
+.task-div{
+  width: 100% !important;
+  display: flexbox;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  
+}
+
+.table-div{
+  
+  display: flexbox;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+
+
+.row-hover:hover{
+  background-color: #D0CDD7 !important;
+  cursor: pointer;
+
+}
+
+.dialog-table{
+  width: 100% !important;
+}

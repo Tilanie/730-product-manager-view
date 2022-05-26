@@ -13,6 +13,15 @@ table {
 }
 
 .home-div{
-  width: 80%;
+  width: 90%;
   margin: auto;
 }
+
+.assign-user-button{
+  margin-right: 6px;
+}
+
+.assign-task-button{
+  margin-left: 6px;
+}
+
