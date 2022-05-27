@@ -12,37 +12,28 @@ import { StoreProductDialog } from './dialogs/create-product-dialog/create-produ
 import { TaskDialog } from './dialogs/task-dialog/task-dialog';
 import { UserDialog } from './dialogs/user-dialog/user-dialog';
 import { DialogElementsExampleDialog } from './dialogs/product-dialog/product-dialog';
+import { DataServiceService } from '../services/data-service.service';
+import { ArrayType } from '@angular/compiler';
+import { Guid } from 'guid-typescript';
 
 
 
 
-const ELEMENT_DATA: ProductModel[] = [
-  {position: 1, created: "01/01/2020", productId: "1", vendorId: 'H', size: 1, unitPrice: 12.0, productName: "Name", colour: "Yellow", category: "Food", brand: "Chair", description: "cha", stockLevel: 21},
-  {position: 2, created: "01/01/2020", productId: "2", vendorId: 'H', size: 1, unitPrice: 12.0, productName: "Name", colour: "Yellow", category: "Food", brand: "Chair", description: "cha", stockLevel: 343},
-  {position: 3, created: "01/01/2020", productId: "3", vendorId: 'H', size: 1, unitPrice: 12.0, productName: "Name", colour: "Yellow", category: "Food", brand: "Chair", description: "cha", stockLevel: 12},
-  {position: 4, created: "01/01/2020", productId: "4", vendorId: 'H', size: 1, unitPrice: 12.0, productName: "Name", colour: "Yellow", category: "Food", brand: "Chair", description: "cha", stockLevel: 55},
-  {position: 5, created: "01/01/2020", productId: "5", vendorId: 'H', size: 1, unitPrice: 12.0, productName: "Name", colour: "Yellow", category: "Food", brand: "Chair", description: "cha", stockLevel: 1},
-  {position: 6, created: "01/01/2020", productId: "6", vendorId: 'H', size: 1, unitPrice: 12.0, productName: "Name", colour: "Yellow", category: "Food", brand: "Chair", description: "cha", stockLevel: 21},
-];
-const tasks = [new TaskModel(0, "1234", "01/01/2020", "AMANAGER", "unassigned", "AUSER", "move", ["1", "2"]), 
-              new TaskModel(1, "1234", "01/01/2020", "AMANAGER", "assigned", "AUSER", "consolidate", ["3", "4", "5"]), 
-              new TaskModel(2, "1234", "01/01/2020", "AMANAGER", "unassigned", "AUSER", "move", ["3", "4", "5", "1"])]
-const users = [
-  new UserModel(0, "123456", "user1@gmail.com", "AUSER", ["manager"], "First", "Last", "pass123"),
-  new UserModel(1, "123457", "user2@gmail.com", "BUSER", ["manager"], "First A", "Last", "pass123"),
-  new UserModel(2, "123458", "user3@gmail.com", "CUSER", ["manager"], "First B", "Last", "pass123"),
-  new UserModel(3, "123459", "user4@gmail.com", "DUSER", ["manager"], "First C", "Last", "pass123")
-]
-const QUEUE_DATA: QueueModel[] = [
- {id:0, tasks:tasks, users:users, state:"open"},
- {id:1, tasks:tasks, users:users, state:"closed"},
- {id:2, tasks:tasks, users:users, state:"open"},
- {id:3, tasks:tasks, users:users, state:"close"}
+var ELEMENT_DATA: ProductModel[] = [
+ ];
+
+
+var QUEUE_DATA: QueueModel[] = [
+
 ];
 
-const TASK_DATA: TaskModel[] = tasks
+var TASK_DATA: TaskModel[] = [
 
-const USER_DATA: UserModel[] = users
+];
+
+var USER_DATA: UserModel[] = [
+
+];
 
 @Component({
   selector: 'app-home',
@@ -52,7 +43,7 @@ const USER_DATA: UserModel[] = users
 export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['position', 'created', 'productId', 'vendorId', 'size', 'unitPrice', 'productName', 'colour', 'category', 'brand', 'description', 'stockLevel'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  productModel: ProductModel =  new ProductModel(1, "01/01/2020", "1", "H", 1, 12.0, "Name", "Yellow", "Food", "Chair", "cha", 21);
+  productModel: ProductModel =  new ProductModel(Guid.create().toString(), "01/01/2020", Guid.create(), Guid.create(), 1, 12.0, "Name", "Yellow", "Food", "Chair", "cha", 21);
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -81,7 +72,7 @@ export class HomeComponent implements OnInit {
   }
 
   rowSelected(row: ProductModel){
-    this.productModel = new ProductModel(row.position, row.created, row.productId, row.vendorId, row.size, row.unitPrice, row.productName, row.colour, row.category, row.brand, row.description, row.stockLevel)
+    this.productModel = new ProductModel(row.id, row.created, row.productID, row.vendorID, row.size, row.unitPrice, row.productName, row.colour, row.category, row.brand, row.description, row.stockLevel)
     this.openDialog(this.productModel)
   }
 
@@ -96,6 +87,11 @@ export class HomeComponent implements OnInit {
     });
 
     const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
+      this.dataService.getQueues().subscribe((data: QueueModel[]) => {
+        
+        QUEUE_DATA = data;
+        this.queueDataSource = new MatTableDataSource(QUEUE_DATA);
+      });
       dialogRef.close();
     });
   
@@ -125,6 +121,16 @@ export class HomeComponent implements OnInit {
     });
 
     const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
+      this.dataService.getTasks().subscribe((data: TaskModel[]) => {
+        TASK_DATA = data;
+        this.taskDataSource = new MatTableDataSource(TASK_DATA);
+      });
+
+      this.dataService.getQueues().subscribe((data: QueueModel[]) => {
+        QUEUE_DATA = data;
+        this.queueDataSource = new MatTableDataSource(QUEUE_DATA);
+      });
+  
       dialogRef.close();
     });
   }
@@ -173,9 +179,34 @@ export class HomeComponent implements OnInit {
   }
 
 
-  
-  constructor(public dialog: MatDialog, public productDialog: MatDialog, public taskDialog: MatDialog, public userDialog: MatDialog, public queueDialog: MatDialog) {}
-  ngOnInit(): void {
+  public product_data: ProductModel[] = new Array<ProductModel>();
+  constructor(public dialog: MatDialog, public productDialog: MatDialog, public taskDialog: MatDialog, public userDialog: MatDialog, public queueDialog: MatDialog, public dataService: DataServiceService) {}
+  async ngOnInit(): Promise<void> {
+    this.dataService.getProducts().subscribe((data: ProductModel[]) => {
+      this.product_data = data;
+      ELEMENT_DATA = this.product_data;
+      this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+  })
+
+    this.dataService.getQueues().subscribe((data: QueueModel[]) => {
+      QUEUE_DATA = data;
+      this.queueDataSource = new MatTableDataSource(QUEUE_DATA);
+    });
+
+    this.dataService.getTasks().subscribe((data: TaskModel[]) => {
+      TASK_DATA = data;
+      this.taskDataSource = new MatTableDataSource(TASK_DATA);
+    });
+
+    this.dataService.getUsers().subscribe((data: UserModel[]) => {
+      USER_DATA = data;
+      console.log(USER_DATA)
+      this.userDataSource = new MatTableDataSource(USER_DATA);
+    });
+
+    
+    
+    
   }
 }
 

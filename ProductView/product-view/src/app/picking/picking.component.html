@@ -2,11 +2,72 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Queues
+          Orders
         </mat-panel-title>
         <mat-panel-description>
-          View open/closed queues
+     
+          
+         
+         
         </mat-panel-description>
       </mat-expansion-panel-header>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          
+        <!-- id Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> position </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+      
+        <!-- tasks Column -->
+        <ng-container matColumnDef="created">
+          <th mat-header-cell *matHeaderCellDef> Warehouse created </th>
+          <td mat-cell *matCellDef="let element"> {{element.created}} </td>
+        </ng-container>
+      
+        <!-- user Column -->
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef> product </th>
+          <td mat-cell *matCellDef="let element"> {{element.product.position}} </td>
+        </ng-container>
+      
+        <!-- state Column -->
+        <ng-container matColumnDef="vendorId">
+          <th mat-header-cell *matHeaderCellDef> vendorId </th>
+          <td mat-cell *matCellDef="let element"> {{element.vendorId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef> amount </th>
+          <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="unitPrice">
+          <th mat-header-cell *matHeaderCellDef> unitPrice </th>
+          <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="shippingStatus">
+          <th mat-header-cell *matHeaderCellDef> shippingStatus </th>
+          <td mat-cell *matCellDef="let element"> {{element.shippingStatus}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>  </th>
+          <td mat-cell *matCellDef="let element">
+
+            <div class="button-div">
+              <button mat-stroked-button >Move Stock</button>
+              <button mat-stroked-button >Deconsolidate</button>
+              <button mat-stroked-button >Consolidate</button>
+            </div>
+          </td>
+        </ng-container>
+
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumens"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumens;"></tr>
+      
+      </table>
     </mat-expansion-panel>
 </mat-accordion>

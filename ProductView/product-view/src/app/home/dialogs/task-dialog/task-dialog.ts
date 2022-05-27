@@ -2,6 +2,7 @@ import { Component, EventEmitter, Inject } from "@angular/core";
 import { MatDialog, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
 import { QueueModel } from "src/app/models/queue-model";
+import { DataServiceService } from "src/app/services/data-service.service";
 import { TaskModel } from "../../../models/task-model";
 import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-assignment-dialog";
 
@@ -16,7 +17,8 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialog,
-      public confirmDialog: MatDialog
+      public confirmDialog: MatDialog,
+      private dataService: DataServiceService
     ) {
       this.onAdd = new EventEmitter()
       this.queue_info = data.QUEUE_DATA;
@@ -34,7 +36,10 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
 
     assignTaskToQueue(task: TaskModel, queue: QueueModel){
       // @TODO implement assign to backends
-      this.onAdd.emit();
+      this.dataService.assignTaskToQueue(task, queue).subscribe((data: any) => {
+        this.onAdd.emit();
+      });
+      
     }
   
     rowSelected(element: TaskModel){

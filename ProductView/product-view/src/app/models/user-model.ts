@@ -1,29 +1,29 @@
 export class UserModel {
     id: number;
-    id_number: string;
+    idNumber: string;
     email :string;
     username: string;
     roles: string[];
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
     password: string;
     constructor(
         id?: number,
-        id_number?: string,
+        idNumber?: string,
         email?: string,
         username?: string,
         roles?: string[],
-        first_name?: string,
-        last_name?: string,
+        firstName?: string,
+        lastName?: string,
         password?: string
     ){
         this.id = id ? id: 0;
-        this.id_number = id_number ? id_number : "";
+        this.idNumber = idNumber ? idNumber : "";
         this.email = email ? email : "";
         this.username = username ? username: "";
-        this.first_name = first_name ? first_name : "";
+        this.firstName = firstName ? firstName : "";
         this.roles = roles ? roles : new Array<string>();
-        this.last_name = last_name ? last_name : "";
+        this.lastName = lastName ? lastName : "";
         this.password = password ? password : "";
     }
 }
