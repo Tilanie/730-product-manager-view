@@ -35,6 +35,8 @@ import {MatCardModule} from '@angular/material/card';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LogInComponent } from './components/log-in/log-in.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent }
@@ -87,7 +89,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

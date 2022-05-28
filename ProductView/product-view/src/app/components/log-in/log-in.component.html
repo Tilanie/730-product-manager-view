@@ -9,7 +9,7 @@
             <input matInput placeholder="Username" name="username" [(ngModel)]="user_info.username">
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Password" name="password" [(ngModel)]="user_info.password">
+            <input matInput placeholder="Password" name="password" [type]="'password'" [(ngModel)]="user_info.password">
           </mat-form-field>
         </mat-card-content>
         <button mat-stroked-button color="accent" class="btn-block" (click)="login()">Log in</button>
