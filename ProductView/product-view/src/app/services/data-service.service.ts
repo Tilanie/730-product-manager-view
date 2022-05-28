@@ -33,18 +33,20 @@ export class DataServiceService {
     return data;
   }
 
-  public addProduct(product: ProductModel){
+  public addProduct(product: ProductModel): any{
     let body = JSON.parse(JSON.stringify(product));
-    body.productId = product.productID.toString();
+    let productId = (product.productID).toString();
+    let vendorId =  product.vendorID.toString();
+    
+    body.productId = productId;
     body.id = body.productId;
-    body.vendorId = product.vendorID.toString();
-    body.created = "2022-05-27T17:46:44.448Z";
+    body.vendorId = vendorId;
+    body.created = new Date()
+
     let headers = new HttpHeaders({
       'Content-Type': 'application/json' });
     let options = { headers: headers };
-    this.http.post<ProductModel>('https://cos730-product-manager.azurewebsites.net/Product/Add', body, options).subscribe(data => {
-        console.log(data)
-    })
+    return this.http.post<ProductModel>('https://cos730-product-manager.azurewebsites.net/Product/Add', body, options);
   }
 
   public updateProduct(product: ProductModel): any{

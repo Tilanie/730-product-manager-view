@@ -5,6 +5,7 @@ import { ProductModel } from "../../../models/product-model";
 import { ConfirmDialog } from "../confirm-dialog/confirm-dialog";
 
 import { Guid } from 'guid-typescript';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -15,12 +16,12 @@ import { Guid } from 'guid-typescript';
   export class StoreProductDialog {
     productModel: ProductModel;
     public onAdd = new EventEmitter()
-    constructor(public confirmDialog: MatDialog, public dataService: DataServiceService){
+    constructor(public confirmDialog: MatDialog, public dataService: DataServiceService, private spinner: NgxSpinnerService){
       this.productModel =new ProductModel()
     }
   
     saveProduct(){
-      //@TODO
+ 
       this.openConfirmDialog(this.productModel)
     }
   
@@ -34,12 +35,15 @@ import { Guid } from 'guid-typescript';
         this.onAdd.emit();
       });
       dialogRef.afterClosed().subscribe(() => {
+        this.spinner.show();
+        this.productModel.productID = Guid.create().toString();
+        this.productModel.vendorID = Guid.create().toString();
+        this.dataService.addProduct(this.productModel).subscribe((data: any) => {
+          this.spinner.hide();
+          this.onAdd.emit();
+        });
        
-        this.productModel.productID = Guid.create();
-        this.productModel.vendorID = Guid.create();
-        this.dataService.addProduct(this.productModel);
-       
-        this.onAdd.emit();
+        
       });
     }
   

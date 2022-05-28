@@ -41,9 +41,9 @@ var USER_DATA: UserModel[] = [
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'created', 'productId', 'vendorId', 'size', 'unitPrice', 'productName', 'colour', 'category', 'brand', 'description', 'stockLevel'];
+  displayedColumns: string[] = ['created', 'productId', 'vendorId', 'size', 'unitPrice', 'productName', 'colour', 'category', 'brand', 'description', 'stockLevel'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  productModel: ProductModel =  new ProductModel(Guid.create().toString(), "01/01/2020", Guid.create(), Guid.create(), 1, 12.0, "Name", "Yellow", "Food", "Chair", "cha", 21);
+  productModel: ProductModel =  new ProductModel(Guid.create().toString(), "01/01/2020", Guid.create().toString(), Guid.create().toString(), 1, 12.0, "Name", "Yellow", "Food", "Chair", "cha", 21);
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -178,7 +178,7 @@ export class HomeComponent implements OnInit {
    
     });
     dialogRef.afterClosed().subscribe(() => {
-      // unsubscribe onAdd
+      this.ngOnInit();
      
     });
   }
@@ -188,6 +188,15 @@ export class HomeComponent implements OnInit {
   constructor(public dialog: MatDialog, public productDialog: MatDialog, public taskDialog: MatDialog, public userDialog: MatDialog, public queueDialog: MatDialog, public dataService: DataServiceService) {}
   async ngOnInit(): Promise<void> {
     this.dataService.getProducts().subscribe((data: ProductModel[]) => {
+      data.map(val => {
+        let date = new Date(val.created);
+        var dd = String(date.getDate()).padStart(2, '0');
+        var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = date.getFullYear();
+
+        let newDate = mm + '/' + dd + '/' + yyyy;
+        val.created = newDate;
+      })
       this.product_data = data;
       ELEMENT_DATA = this.product_data;
       this.dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -205,7 +214,6 @@ export class HomeComponent implements OnInit {
 
     this.dataService.getUsers().subscribe((data: UserModel[]) => {
       USER_DATA = data;
-      console.log(USER_DATA)
       this.userDataSource = new MatTableDataSource(USER_DATA);
     });
 

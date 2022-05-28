@@ -30,8 +30,11 @@ import { UserDialog } from './home/dialogs/user-dialog/user-dialog';
 import { DialogElementsExampleDialog } from './home/dialogs/product-dialog/product-dialog';
 import { ConfirmAssignmentDialog } from './home/dialogs/confirm-assignment-dialog/confirm-assignment-dialog';
 import { PickingComponent } from './picking/picking.component';
+import {MatCardModule} from '@angular/material/card';
 
-
+import { NgxSpinnerModule } from "ngx-spinner";
+import { LogInComponent } from './components/log-in/log-in.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent }
@@ -48,7 +51,8 @@ const routes: Routes = [
     QueueDialog,
     StoreProductDialog,
     ConfirmAssignmentDialog,
-    PickingComponent
+    PickingComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,10 @@ const routes: Routes = [
     MatIconModule,
     MatExpansionModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule,
+    FlexLayoutModule,
+    MatCardModule
   ],
   exports: [
     MatTableModule,
