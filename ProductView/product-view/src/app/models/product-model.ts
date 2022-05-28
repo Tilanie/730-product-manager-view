@@ -1,8 +1,10 @@
+import { Guid } from "guid-typescript";
+
 export class ProductModel {
-   position: number;
+   id: string;
     created: string;
-    productId: string;
-    vendorId: string;
+    productID: Guid;
+    vendorID: Guid;
     size: number;
     unitPrice: number;
     productName: string;
@@ -13,11 +15,10 @@ export class ProductModel {
     stockLevel: number;
 
   constructor(
-
-    position?: number,
+    id? : string,
     created?: string,
-    productId?: string,
-    vendorId?: string,
+    productID?: Guid,
+    vendorID?: Guid,
     size?: number,
     unitPrice?: number,
     productName?: string,
@@ -27,10 +28,9 @@ export class ProductModel {
     description?: string,
     stockLevel?: number,
   ){
-    this.position = position ? position: 0;
     this.created = created ? created : "";
-    this.productId = productId ? productId : "";
-    this.vendorId = vendorId ? vendorId: "";
+    this.productID = productID ? productID : Guid.create();
+    this.vendorID = vendorID ? vendorID: Guid.create();
     this.size = size ? size : 0;
     this.unitPrice = unitPrice ? unitPrice : 0;
     this.productName = productName ? productName : "";
@@ -39,5 +39,6 @@ export class ProductModel {
     this.brand = brand ? brand : "";
     this.description = description ? description : "";
     this.stockLevel = stockLevel ? stockLevel : 0;
+    this.id = id ? id : Guid.create().toString()
   }
 }

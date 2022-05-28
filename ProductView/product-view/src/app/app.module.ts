@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {  HomeComponent } from './home/home.component';
+
 
 import {MatTabsModule} from '@angular/material/tabs';
 import { RouterModule, Routes } from '@angular/router';
@@ -26,6 +29,7 @@ import { TaskDialog } from './home/dialogs/task-dialog/task-dialog';
 import { UserDialog } from './home/dialogs/user-dialog/user-dialog';
 import { DialogElementsExampleDialog } from './home/dialogs/product-dialog/product-dialog';
 import { ConfirmAssignmentDialog } from './home/dialogs/confirm-assignment-dialog/confirm-assignment-dialog';
+import { PickingComponent } from './picking/picking.component';
 
 
 
@@ -43,7 +47,8 @@ const routes: Routes = [
     ConfirmDialog,
     QueueDialog,
     StoreProductDialog,
-    ConfirmAssignmentDialog
+    ConfirmAssignmentDialog,
+    PickingComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatIconModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   exports: [
     MatTableModule,
