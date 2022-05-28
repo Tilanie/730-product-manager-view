@@ -156,9 +156,14 @@ export class HomeComponent implements OnInit {
   }
 
   openDialog(productModel: ProductModel) {
-    this.dialog.open(DialogElementsExampleDialog, {
+    const dialogRef =this.dialog.open(DialogElementsExampleDialog, {
       width: '30%',
       data: productModel} );
+
+      const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
+        dialogRef.close()
+        this.ngOnInit();
+      });
   }
 
   openAddProductDialog(){

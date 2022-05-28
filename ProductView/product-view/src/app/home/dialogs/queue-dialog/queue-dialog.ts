@@ -21,7 +21,7 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
       public confirmDialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-      console.log(data)
+    
       this.onAdd = new EventEmitter();
       this.info = data.info;
       this.QUEUE_DATA = data.QUEUE_DATA;
@@ -38,16 +38,21 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
       this.queueDataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    assignQueue(queue: QueueModel, task: TaskModel){
+    assignQueue(queue: QueueModel, assignee: any){
       //@TODO implement
-      this.dataService.assignTaskToQueue(task, queue).subscribe((data: any) => {
-        this.onAdd.emit();
-      });
-
+      var userType = 'username' in assignee;
+      if(userType){
+        this.dataService.assignUserToQueue(assignee, queue).subscribe((data: any) => {
+          this.onAdd.emit();
+        });
+      } else {
+        this.dataService.assignTaskToQueue(assignee, queue).subscribe((data: any) => {
+          this.onAdd.emit();
+        });
+      }
     }
 
     rowSelected(element: QueueModel){
-      //@TODO assign this user to the queue
       this.queue_info = element;
       const dialogRef = this.confirmDialog.open(ConfirmAssignmentDialog, {
         width: '1000px',

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ProductModel } from '../models/product-model';
 import { QueueModel } from '../models/queue-model';
 import { TaskModel } from '../models/task-model';
+import { UserModel } from '../models/user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,18 +47,20 @@ export class DataServiceService {
     })
   }
 
-  public updateProduct(product: ProductModel){
+  public updateProduct(product: ProductModel): any{
     let body = JSON.parse(JSON.stringify(product));
     
     let headers = new HttpHeaders({
       'Content-Type': 'application/json' });
     let options = { headers: headers };
-    this.http.patch<ProductModel>('https://cos730-product-manager.azurewebsites.net/Product/Update/' + product.id, body, options).subscribe(data => {
-        console.log(data)
-    })
+    return this.http.post<ProductModel>('https://cos730-product-manager.azurewebsites.net/Product/Update/' + product.id, body, options);
   }
 
   public assignTaskToQueue(task: TaskModel, queue: QueueModel): any{
     return this.http.get<any>('https://cos730-product-manager.azurewebsites.net/Task/Enqueue/' + queue.id + '/' + task.id);
+  }
+
+  public assignUserToQueue(user: UserModel, queue: QueueModel): any{
+    return this.http.get<any>('https://cos730-product-manager.azurewebsites.net/User/Enqueue/' + queue.id + '/' + user.id);
   }
 }
