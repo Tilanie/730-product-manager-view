@@ -30,8 +30,7 @@ export class LogInComponent implements OnInit {
     
     this.spinner.show();
     let valid = await this.validateUser();
-    console.log("logging in")
-    console.log(valid)
+   
     this.spinner.hide();
     if(valid){
       
