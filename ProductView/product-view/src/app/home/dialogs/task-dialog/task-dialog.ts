@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject } from "@angular/core";
 import { MatDialog, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
+import { NgxSpinnerService } from "ngx-spinner";
 import { QueueModel } from "src/app/models/queue-model";
 import { DataServiceService } from "src/app/services/data-service.service";
 import { TaskModel } from "../../../models/task-model";
@@ -18,7 +19,8 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
         @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialog,
       public confirmDialog: MatDialog,
-      private dataService: DataServiceService
+      private dataService: DataServiceService,
+      private spinner: NgxSpinnerService
     ) {
       this.onAdd = new EventEmitter()
       this.queue_info = data.QUEUE_DATA;
@@ -35,9 +37,10 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
     }
 
     assignTaskToQueue(task: TaskModel, queue: QueueModel){
-      // @TODO implement assign to backends
+      this.spinner.show();
       this.dataService.assignTaskToQueue(task, queue).subscribe((data: any) => {
         this.onAdd.emit();
+        this.spinner.hide();
       });
       
     }

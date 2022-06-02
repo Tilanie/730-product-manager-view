@@ -5,6 +5,7 @@ import { QueueModel } from "src/app/models/queue-model";
 import { TaskModel } from "../../../models/task-model";
 import { DataServiceService } from "src/app/services/data-service.service";
 import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-assignment-dialog";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
     selector: 'queue-dialog',
@@ -19,6 +20,7 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
       private dataService: DataServiceService,
       public dialogRef: MatDialog,
       public confirmDialog: MatDialog,
+      private spinner: NgxSpinnerService,
       @Inject(MAT_DIALOG_DATA) public data: any
     ) {
     
@@ -39,14 +41,16 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
     }
 
     assignQueue(queue: QueueModel, assignee: any){
-      //@TODO implement
+      this.spinner.show();
       var userType = 'username' in assignee;
       if(userType){
         this.dataService.assignUserToQueue(assignee, queue).subscribe((data: any) => {
+          this.spinner.hide();
           this.onAdd.emit();
         });
       } else {
         this.dataService.assignTaskToQueue(assignee, queue).subscribe((data: any) => {
+          this.spinner.hide();
           this.onAdd.emit();
         });
       }
@@ -60,7 +64,7 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
       });
   
       const sub = dialogRef.componentInstance.onAdd.subscribe(() => {
-  
+    
         this.assignQueue(this.queue_info, this.info);
       })
     }

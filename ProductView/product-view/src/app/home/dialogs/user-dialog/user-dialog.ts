@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Inject } from "@angular/core";
 import { MatDialog, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
+import { NgxSpinnerService } from "ngx-spinner";
+import { DataServiceService } from "../../../services/data-service.service";
 import { QueueModel } from "../../../models/queue-model";
 import { UserModel } from "../../../models/user-model";
 import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-assignment-dialog";
@@ -16,7 +18,9 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
     constructor(
       @Inject(MAT_DIALOG_DATA) public data: any,
       public dialogRef: MatDialog,
-      public confirmDialog: MatDialog
+      public confirmDialog: MatDialog,
+      private dataService: DataServiceService,
+      private spinner: NgxSpinnerService
     ) {
       this.onAdd = new EventEmitter();
       this.queue_info = data.QUEUE_DATA;
@@ -25,8 +29,11 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
     userDataSource = new MatTableDataSource(this.data.USER_DATA);
     userDisplayColumns: string[] = ['id', 'id_number', 'email', 'username', 'first_name', 'last_name', 'password']
     assignUserToQueue(user: UserModel, queue: QueueModel){
-      //@TODO implement
-      this.onAdd.emit();
+      this.spinner.show();
+      this.dataService.assignUserToQueue(user, queue).subscribe((data: any) => {
+        this.onAdd.emit();
+        this.spinner.hide();
+      });
     }
     applyUserFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
@@ -34,7 +41,6 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
     }
   
     rowSelected(element: UserModel){
-      //@TODO assign this user to the queue
       this.user_info = element;
       const dialogRef = this.confirmDialog.open(ConfirmAssignmentDialog, {
         width: '1000px',

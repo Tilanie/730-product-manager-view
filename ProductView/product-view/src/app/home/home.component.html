@@ -8,11 +8,7 @@
     
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-      </ng-container>
+    
     
       <!-- Name Column -->
       <ng-container matColumnDef="created">
@@ -23,13 +19,13 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="productId">
         <th mat-header-cell *matHeaderCellDef> productId </th>
-        <td mat-cell *matCellDef="let element"> {{element.productID}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.productID.slice(0,7)}} </td>
       </ng-container>
     
       <!-- Symbol Column -->
       <ng-container matColumnDef="vendorId">
         <th mat-header-cell *matHeaderCellDef> vendorId </th>
-        <td mat-cell *matCellDef="let element"> {{element.vendorID}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.vendorID.slice(0,7)}} </td>
       </ng-container>
   
       <ng-container matColumnDef="size">

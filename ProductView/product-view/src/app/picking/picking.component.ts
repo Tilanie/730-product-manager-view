@@ -26,7 +26,7 @@ export class PickingComponent implements OnInit {
   //    unitPrice: number;
   //    shippingStatus: string;
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  displayedColumens: string[] = ['position', 'created', 'product', 'vendorId', 'amount', 'unitPrice', 'shippingStatus', 'actions'];
+  displayedColumens: string[] = ['created', 'product', 'vendorId', 'amount', 'unitPrice', 'shippingStatus', 'actions'];
   constructor() { }
 
   ngOnInit(): void {
