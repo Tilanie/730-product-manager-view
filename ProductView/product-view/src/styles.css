@@ -59,3 +59,21 @@
 .dialog-table{
   width: 100% !important;
 }
+
+.product-input{
+  
+  width: 100% !important;
+}
+
+.product-div{
+  margin-top: 8px !important;
+}
+
+.input-span{
+  font-weight: bold ;
+}
+
+.product-edit-dialog{
+  border-top: #416165ff solid 4px;
+  padding-top: 10px;
+}
