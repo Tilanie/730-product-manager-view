@@ -73,7 +73,21 @@
   font-weight: bold ;
 }
 
-.product-edit-dialog{
+.dialog-style{
   border-top: #416165ff solid 4px;
   padding-top: 10px;
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+}
+
+th.mat-header-cell {
+  text-align: center !important;
 }
