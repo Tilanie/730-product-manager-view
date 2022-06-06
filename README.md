@@ -1,4 +1,4 @@
-# COS730 Project System
+# COS730 Project View
 ## Product Manager View
 This system is the Front-end Sub-systems used to manage Prodyct and Resource management functionality. 
 ### User Manual
