@@ -43,7 +43,7 @@ import { ConfirmAssignmentDialog } from "../confirm-assignment-dialog/confirm-as
     rowSelected(element: UserModel){
       this.user_info = element;
       const dialogRef = this.confirmDialog.open(ConfirmAssignmentDialog, {
-        width: '1000px',
+        width: '500px',
         data: element
       });
   

@@ -1,3 +1,4 @@
+<div class="dialog-style">
 <h1 mat-dialog-title>Add Tasks</h1>
 <div mat-dialog-content>
     <div class="task-div">
@@ -11,7 +12,7 @@
         <!-- id Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> Id </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.id.slice(0,7)}} </td>
         </ng-container>
       
         <!-- tasks Column -->
@@ -74,4 +75,4 @@
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
-</div>
+</div></div>

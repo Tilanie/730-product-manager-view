@@ -18,13 +18,13 @@
     
       <!-- Weight Column -->
       <ng-container matColumnDef="productId">
-        <th mat-header-cell *matHeaderCellDef> productId </th>
+        <th mat-header-cell *matHeaderCellDef> product ID </th>
         <td mat-cell *matCellDef="let element"> {{element.productID.slice(0,7)}} </td>
       </ng-container>
     
       <!-- Symbol Column -->
       <ng-container matColumnDef="vendorId">
-        <th mat-header-cell *matHeaderCellDef> vendorId </th>
+        <th mat-header-cell *matHeaderCellDef> vendor ID </th>
         <td mat-cell *matCellDef="let element"> {{element.vendorID.slice(0,7)}} </td>
       </ng-container>
   
@@ -34,11 +34,11 @@
         </ng-container>
         
         <ng-container matColumnDef="unitPrice">
-          <th mat-header-cell *matHeaderCellDef> unitPrice </th>
+          <th mat-header-cell *matHeaderCellDef> unit price </th>
           <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
         </ng-container>
         <ng-container matColumnDef="productName">
-          <th mat-header-cell *matHeaderCellDef> productName </th>
+          <th mat-header-cell *matHeaderCellDef> product name </th>
           <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
         </ng-container>
         <ng-container matColumnDef="colour">
@@ -58,7 +58,7 @@
           <td mat-cell *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
         <ng-container matColumnDef="stockLevel">
-          <th mat-header-cell *matHeaderCellDef> stockLevel </th>
+          <th mat-header-cell *matHeaderCellDef> stock level </th>
           <td mat-cell *matCellDef="let element"> {{element.stockLevel}} </td>
         </ng-container>
     
@@ -185,7 +185,7 @@
         
           <!-- tasks Column -->
           <ng-container matColumnDef="warehouse_number">
-            <th mat-header-cell *matHeaderCellDef> Warehouse Number </th>
+            <th mat-header-cell *matHeaderCellDef> Warehouse </th>
             <td mat-cell *matCellDef="let element"> {{element.warehouseNumber}} </td>
           </ng-container>
         

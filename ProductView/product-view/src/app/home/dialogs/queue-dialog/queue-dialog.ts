@@ -59,7 +59,7 @@ import { NgxSpinnerService } from "ngx-spinner";
     rowSelected(element: QueueModel){
       this.queue_info = element;
       const dialogRef = this.confirmDialog.open(ConfirmAssignmentDialog, {
-        width: '1000px',
+        width: '500px',
         data: element
       });
   

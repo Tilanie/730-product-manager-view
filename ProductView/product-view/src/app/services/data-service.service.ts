@@ -50,6 +50,7 @@ export class DataServiceService {
   }
 
   public updateProduct(product: ProductModel): any{
+    product.created = new Date(product.created).toISOString();
     let body = JSON.parse(JSON.stringify(product));
     
     let headers = new HttpHeaders({
